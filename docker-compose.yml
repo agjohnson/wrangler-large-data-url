@@ -1,0 +1,37 @@
+networks:
+  internal:
+
+services:
+  wrangler:
+    image: 2988/wrangler
+    build: ./wrangler
+    depends_on:
+      fileserver:
+        condition: service_healthy
+    networks:
+      internal:
+    healthcheck:
+      test: netstat -an | grep 8787 > /dev/null; if [ 0 != $? ]; then exit 1; fi;
+      start_period: 60s
+      start_interval: 5s
+
+  fileserver:
+    image: 2988/fileserver
+    build: ./fileserver
+    networks:
+      internal:
+    healthcheck:
+      test: netstat -an | grep 9000 > /dev/null; if [ 0 != $? ]; then exit 1; fi;
+      start_period: 60s
+      start_interval: 5s
+    
+  tests:
+    image: 2988/tests
+    build: ./tests
+    depends_on:
+      fileserver:
+        condition: service_healthy
+      wrangler:
+        condition: service_healthy
+    networks:
+      internal:
