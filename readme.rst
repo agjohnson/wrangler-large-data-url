@@ -1,14 +1,19 @@
+Info
+====
+
 This repository is a minimal reproduction of the bug at:
 
 https://github.com/cloudflare/workerd/issues/2998
 
-### Running
+Running
+-------
 
 ```
 % docker compose up
 ```
 
-### Interpreting
+Interpreting
+------------
 
 After the minimal Wrangler worker and fake origin server have started, the
 ``tests`` container will run. It issues two requests, both will incorrectly
