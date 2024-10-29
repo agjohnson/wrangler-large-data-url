@@ -8,9 +8,7 @@ https://github.com/cloudflare/workerd/issues/2998
 Running
 -------
 
-```
-% docker compose up
-```
+    % docker compose up
 
 Interpreting
 ------------
@@ -23,7 +21,8 @@ returned by ``curl``, the ``fileserver`` exception about the connection being
 severed, and ``wrangler`` will show errors about memory limits and errors from
 HTMLWriter, even though there is no HTMLWriter invoked at all in the worker.
 
-### What seems to be happening
+What seems to be happening
+--------------------------
 
 Wrangler workers seem to inspect inner URLs on ``img`` elements with ``data:``
 URLs. Because the data URL is 10MB inline, this causes a memory limit error on
